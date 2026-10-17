@@ -30,3 +30,38 @@ dbt deps
 dbt run
 dbt test
 ```
+## 📂 Local Data Directory & Placement Guide
+
+To execute the ingestion scripts successfully, the raw, unzipped source datasets must be placed into the following exact filesystem paths relative to the project root:
+
+```text
+📁 human-centred-research-data-platform/
+│
+├── 📁 data/
+│   ├── 📁 raw/
+│   │   ├── 📁 oulad/            ◄── Place OULAD CSV files here
+│   │   │   ├── studentInfo.csv
+│   │   │   ├── studentVle.csv
+│   │   │   ├── assessments.csv
+│   │   │   └── studentAssessment.csv
+│   │   │
+│   │   ├── 📁 nhanes3/          ◄── Place NHANES III DAT files here
+│   │   │   ├── adult.dat
+│   │   │   ├── adultx.dat
+│   │   │   └── lab2.dat
+│   │   │
+│   │   └── 📁 wesad/            ◄── Place unzipped WESAD Subject folders here
+│   │       ├── 📁 S2/
+│   │       │   └── S2.pkl
+│   │       ├── 📁 S3/
+│   │       │   └── S3.pkl
+│   │       └── 📁 ... [S4 to S17]
+│   │
+│   ├── 📁 staged/               ◄── System internal temporary state folder
+│   ├── 📁 exports/              ◄── Target folder for final CSV/Parquet outputs
+│   └── 📁 review/               ◄── Isolated path for anomaly review logs
+│
+```
+
+### 🔧 Verifying Your Local Path Configuration
+Before running scripts, ensure your working directory paths match your user profile by updating `dbt_project/profiles.yml`. Change the absolute database path to point exactly to your disk drive location.
