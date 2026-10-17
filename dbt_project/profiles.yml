@@ -1,0 +1,9 @@
+research_platform_profile:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      # Connects dbt Core directly to your local file database database shell
+      path: 'C:/Users/nnadi/human-centred-research-data-platform/data/unified_warehouse.db'
+      schema: main
+      threads: 4

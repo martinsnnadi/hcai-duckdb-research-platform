@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: local_raw_source_files
+    schema: staging
+    description: "Immutable raw landing tables populated by the Month 2 local Python file streaming ingestion engines."
+    tables:
+      - name: raw_student_info
+      - name: raw_student_vle
+      - name: raw_assessments
+      - name: raw_student_assessment
+      - name: raw_adult_holding
+      - name: raw_adultx_holding
+      - name: raw_lab_holding
+      - name: raw_wesad_telemetry

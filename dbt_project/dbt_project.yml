@@ -1,0 +1,21 @@
+name: 'human_centred_research_data_platform'
+version: '1.0.0'
+config-version: 2
+
+profile: 'research_platform_profile'
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+analysis-paths: ["analyses"]
+
+models:
+  human_centred_research_data_platform:
+    staging:
+      +schema: staging
+      +materialized: view
+    silver:
+      +schema: silver
+      +materialized: table
+    gold:
+      +schema: gold
+      +materialized: table

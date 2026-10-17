@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: silver_nhanes3_adult_merged
+    description: "Harmonized and cleansed Silver tier participant matrix joining demographics, extended survey blocks, and laboratory biomarkers."
+    
+    # Model-level tests handle multi-variable logical expressions and dataset aggregations
+    tests:
+      - dbt_utils.expression_is_true:
+          # Nested inside arguments block to eliminate dbt generic test deprecation warnings
+          arguments:
+            expression: "interview_age >= 0 and interview_age <= 120"
+          
+      - dbt_utils.expression_is_true:
+          # Nested inside arguments block to eliminate dbt generic test deprecation warnings
+          arguments:
+            # Fixed Catalog Error by applying the explicit 'silver.' schema database prefix
+            expression: "(select count(case when thyroid_stimulating_hormone is null then 1 end) * 100.0 / count(*) from silver.silver_nhanes3_adult_merged) <= 15.00"
+
+    columns:
+      - name: participant_seqn
+        description: "Primary key identifier for individual participants."
+        tests:
+          - unique        # ENFORCES: 0 duplicate rows across primary keys (STATUS: PASS)
+          - not_null      # ENFORCES: Operational referential integrity (STATUS: PASS)
